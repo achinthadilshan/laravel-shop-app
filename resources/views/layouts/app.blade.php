@@ -31,55 +31,30 @@
     <nav
         class="bg-white border-b border-slate-200 px-4 py-2.5 dark:bg-slate-800 dark:border-slate-700 fixed left-0 right-0 top-0 z-50">
         <div class="flex flex-wrap items-center justify-between">
-            <div class="flex items-center justify-start">
+            <div class="flex items-center justify-start gap-2">
                 <button data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation"
                     aria-controls="drawer-navigation"
-                    class="p-2 mr-2 rounded-lg cursor-pointer text-slate-600 md:hidden hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white">
-                    <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <svg aria-hidden="true" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
+                    class="p-2 rounded-lg cursor-pointer text-slate-600 md:hidden hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white">
+                    <x-lucide-menu class="w-6 h-6" />
                     <span class="sr-only">Toggle sidebar</span>
                 </button>
                 <a href="#" class="flex items-center justify-between mr-4">
-                    <img src="https://flowbite.s3.amazonaws.com/logo.svg" class="h-8 mr-3" alt="Flowbite Logo" />
                     <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Shop App</span>
                 </a>
             </div>
             <div class="flex items-center lg:order-2">
                 <!-- Dark Mode Switch -->
                 <button id="theme-toggle" type="button"
-                    class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700  rounded-lg text-sm p-2.5">
-                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                    </svg>
-                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                            fill-rule="evenodd" clip-rule="evenodd"></path>
-                    </svg>
+                    class="p-2.5 leading-none rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-700">
+                    <x-lucide-moon id="theme-toggle-dark-icon" class="hidden w-5 h-5" />
+                    <x-lucide-sun id="theme-toggle-light-icon" class="hidden w-5 h-5" />
                 </button>
                 <!-- Notifications -->
                 <button type="button" data-dropdown-toggle="notification-dropdown"
-                    class="p-2 mr-1 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-700">
+                    class="p-2.5 leading-none rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-700">
                     <span class="sr-only">View notifications</span>
                     <!-- Bell icon -->
-                    <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                        </path>
-                    </svg>
+                    <x-lucide-bell class="w-5 h-5" />
                 </button>
                 <!-- Dropdown menu -->
                 <div class="z-50 hidden max-w-sm my-4 overflow-hidden text-base list-none bg-white divide-y shadow-lg divide-slate-100 dark:divide-slate-600 dark:bg-slate-700 rounded-xl"
@@ -292,12 +267,8 @@
                 <li>
                     <a href="#"
                         class="flex items-center p-2 text-base font-medium rounded-lg text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700 group">
-                        <svg aria-hidden="true"
-                            class="w-6 h-6 transition duration-75 text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white"
-                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                            <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                        </svg>
+                        <x-lucide-pie-chart
+                            class="w-5 h-5 transition duration-75 text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white" />
                         <span class="ml-3">Overview</span>
                     </a>
                 </li>
@@ -305,20 +276,12 @@
                     <button type="button"
                         class="flex items-center w-full p-2 text-base font-medium transition duration-75 rounded-lg text-slate-900 group hover:bg-slate-100 dark:text-white dark:hover:bg-slate-700"
                         aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
-                        <svg aria-hidden="true"
-                            class="flex-shrink-0 w-6 h-6 transition duration-75 text-slate-500 group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-white"
-                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
-                                clip-rule="evenodd"></path>
-                        </svg>
+                        <i
+                            class=""></i>
+                            <x-lucide-file-text
+                            class="flex-shrink-0 w-5 h-5 transition duration-75 text-slate-500 group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-white" />
                         <span class="flex-1 ml-3 text-left whitespace-nowrap">Pages</span>
-                        <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg>
+                        <x-lucide-chevron-down class="w-5 h-5" />
                     </button>
                     <ul id="dropdown-pages" class="hidden py-2 space-y-2">
                         <li>
