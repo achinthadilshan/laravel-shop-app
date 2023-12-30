@@ -83,7 +83,6 @@ new #[Layout('layouts.guest')] class extends Component {
                 @foreach ($user_types as $user_type)
                     <option value="{{ $user_type->name }}">{{ ucwords($user_type->name) }}</option>
                 @endforeach
-                <option value="test">test</option>
             </x-select-input>
             <x-input-error :messages="$errors->get('user_type')" class="mt-2" />
         </div>
