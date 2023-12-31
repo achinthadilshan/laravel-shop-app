@@ -228,7 +228,7 @@
                         alt="user photo" />
                 </button>
                 <!-- Dropdown menu -->
-                <div class="z-50 hidden w-56 my-4 text-base list-none bg-white divide-y shadow divide-slate-100 dark:bg-slate-700 dark:divide-slate-600 rounded-xl"
+                <div class="z-50 hidden w-56 my-4 overflow-hidden text-base list-none bg-white divide-y shadow divide-slate-100 dark:bg-slate-700 dark:divide-slate-600 rounded-xl"
                     id="dropdown">
                     <div class="px-4 py-3">
                         <span class="block text-sm font-semibold text-slate-900 dark:text-white">Neil Sims</span>

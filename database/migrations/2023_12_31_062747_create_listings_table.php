@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained();
             $table->decimal('price');
             $table->longText('description');
-            $table->bool('is_published');
-            $table->bool('is_featured');
+            $table->boolean('is_published');
+            $table->boolean('is_featured');
             $table->timestamps();
         });
     }

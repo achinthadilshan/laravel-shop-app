@@ -15,9 +15,9 @@ class RoleAndPermissionSeeder extends Seeder
     public function run(): void
     {
         // Roles
-        $userRole = Role::firstOrCreate(['name' => 'user']);
-        $sellerRole = Role::firstOrCreate(['name' => 'seller']);
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
+        $sellerRole = Role::firstOrCreate(['name' => 'seller']);
+        $userRole = Role::firstOrCreate(['name' => 'user']);
 
         // Permissions
         $permission = Permission::create(['name' => 'visible to register']);
