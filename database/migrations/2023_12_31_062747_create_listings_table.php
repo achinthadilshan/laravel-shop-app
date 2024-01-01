@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained();
             $table->decimal('price');
             $table->longText('description');
-            $table->boolean('is_published');
+            $table->boolean('is_approved');
             $table->boolean('is_featured');
             $table->timestamps();
         });

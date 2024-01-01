@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Pages\Listing;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,8 +24,8 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::middleware(['auth'])->group(function(){
-    // 
+Route::middleware(['auth'])->group(function () {
+    Route::get('listing', Listing::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

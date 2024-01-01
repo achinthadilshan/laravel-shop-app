@@ -207,7 +207,7 @@
                         </a>
                     </div>
                     <a href="#"
-                        class="block py-2 font-medium text-center text-slate-900 text-md bg-slate-50 hover:bg-slate-100 dark:bg-slate-600 dark:text-white dark:hover:underline">
+                        class="block py-2 font-medium text-center text-slate-900 text-md bg-slate-50 dark:bg-slate-600 dark:text-white ">
                         <div class="inline-flex items-center">
                             <svg aria-hidden="true" class="w-4 h-4 mr-2 text-slate-500 dark:text-slate-400"
                                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -276,9 +276,8 @@
                     <button type="button"
                         class="flex items-center w-full p-2 text-base font-medium transition duration-75 rounded-lg text-slate-900 group hover:bg-slate-100 dark:text-white dark:hover:bg-slate-700"
                         aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
-                        <i
-                            class=""></i>
-                            <x-lucide-file-text
+                        <i class=""></i>
+                        <x-lucide-file-text
                             class="flex-shrink-0 w-5 h-5 transition duration-75 text-slate-500 group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-white" />
                         <span class="flex-1 ml-3 text-left whitespace-nowrap">Pages</span>
                         <x-lucide-chevron-down class="w-5 h-5" />
