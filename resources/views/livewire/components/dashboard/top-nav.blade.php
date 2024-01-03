@@ -8,7 +8,7 @@
                 <x-lucide-menu class="w-6 h-6" />
                 <span class="sr-only">Toggle sidebar</span>
             </button>
-            <a href="{{ route('dashboard') }}" class="flex items-center justify-between mr-4">
+            <a href="{{ route('dashboard') }}" class="flex items-center justify-between mr-4" wire:navigate>
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Shop App</span>
             </a>
         </div>

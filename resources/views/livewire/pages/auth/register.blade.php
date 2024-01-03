@@ -40,7 +40,7 @@ new #[Layout('layouts.guest')] class extends Component {
 
         Auth::login($user);
 
-        $this->redirect(RouteServiceProvider::HOME);
+        $this->redirect(RouteServiceProvider::HOME, navigate: true);
     }
 
     // Run 'getRoles' method onmount
