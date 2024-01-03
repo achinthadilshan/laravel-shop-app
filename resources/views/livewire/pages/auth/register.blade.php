@@ -25,13 +25,12 @@ new #[Layout('layouts.guest')] class extends Component {
      */
     public function register(): void
     {
-        $validated = $this->validate(
-            [
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-                'user_type' => ['required', new UserType],
-                'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-            ]);
+        $validated = $this->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'user_type' => ['required', new UserType()],
+            'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+        ]);
 
         $validated['password'] = Hash::make($validated['password']);
 
@@ -41,7 +40,7 @@ new #[Layout('layouts.guest')] class extends Component {
 
         Auth::login($user);
 
-        $this->redirect(RouteServiceProvider::HOME, navigate: true);
+        $this->redirect(RouteServiceProvider::HOME);
     }
 
     // Run 'getRoles' method onmount
