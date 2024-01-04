@@ -4,11 +4,11 @@
         <div class="flex items-center justify-start gap-2">
             <button data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation"
                 aria-controls="drawer-navigation"
-                class="p-2 rounded-lg cursor-pointer text-slate-600 md:hidden hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white">
+                class="p-2 rounded-lg cursor-pointer text-slate-600 xl:hidden hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white">
                 <x-lucide-menu class="w-6 h-6" />
                 <span class="sr-only">Toggle sidebar</span>
             </button>
-            <a href="{{ route('dashboard') }}" class="flex items-center justify-between mr-4" wire:navigate>
+            <a href="{{ route('dashboard.index') }}" class="flex items-center justify-between mr-4" wire:navigate>
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Shop App</span>
             </a>
         </div>

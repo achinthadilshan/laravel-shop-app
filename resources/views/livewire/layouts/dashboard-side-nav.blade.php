@@ -1,15 +1,24 @@
 <aside
-    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full bg-white border-r border-slate-200 pt-14 md:translate-x-0 dark:bg-slate-800 dark:border-slate-700"
+    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full bg-white border-r border-slate-200 pt-14 xl:translate-x-0 dark:bg-slate-800 dark:border-slate-700"
     aria-label="Sidenav" id="drawer-navigation">
     <div class="h-full px-3 py-5 overflow-y-auto bg-white dark:bg-slate-800">
         <ul class="space-y-2">
             <li>
-                <a href="{{ route('dashboard') }}"
+                <a href="{{ route('dashboard.index') }}"
                     class="flex items-center p-2 text-base font-medium rounded-lg text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700 group"
                     wire:navigate>
-                    <x-lucide-pie-chart
+                    <x-lucide-layout-dashboard
                         class="w-5 h-5 transition duration-75 text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white" />
-                    <span class="ml-3">Overview</span>
+                    <span class="ml-3">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('dashboard.listing') }}"
+                    class="flex items-center p-2 text-base font-medium rounded-lg text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700 group"
+                    wire:navigate>
+                    <x-lucide-layout-list
+                        class="w-5 h-5 transition duration-75 text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white" />
+                    <span class="ml-3">Listings</span>
                 </a>
             </li>
             <li>

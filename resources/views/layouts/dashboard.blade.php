@@ -21,20 +21,22 @@
                 '(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
-            document.documentElement.classList.remove('dark')
+            document.documentElement.classList.remove('dark');
         }
     </script>
 </head>
 
 <body class="font-sans antialiased bg-slate-50 dark:bg-slate-900">
     <!-- Top Nav -->
-    <livewire:layout.dashboard-top-nav />
+    <livewire:layouts.dashboard-top-nav />
 
     <!-- Side Nav -->
-    <livewire:layout.dashboard-side-nav />
+    <livewire:layouts.dashboard-side-nav />
 
-    <main class="h-auto p-4 pt-20 md:ml-64">
-        {{ $slot }}
+    <main class="h-auto p-4 pt-20 xl:ml-64">
+        <div class="pt-0 mx-auto md:pt-4 max-w-screen-2xl">
+            {{ $slot }}
+        </div>
     </main>
 </body>
 
