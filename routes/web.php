@@ -1,6 +1,5 @@
 <?php
 
-use App\Livewire\Pages\Listing;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +21,6 @@ Route::view('profile', 'profile')
 
 Route::middleware(['auth'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
-    Route::get('listing', Listing::class)->name('listing');
 });
 
 require __DIR__ . '/auth.php';

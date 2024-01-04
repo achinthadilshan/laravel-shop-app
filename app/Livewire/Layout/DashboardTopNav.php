@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Livewire\Components\Dashboard;
+namespace App\Livewire\Layout;
 
 use Livewire\Component;
 use App\Livewire\Actions\Logout;
 
-class TopNav extends Component
+class DashboardTopNav extends Component
 {
     public function render()
     {
-        return view('livewire.components.dashboard.top-nav');
+        return view('livewire.layout.dashboard-top-nav');
     }
 
     /**

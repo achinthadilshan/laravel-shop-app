@@ -28,10 +28,10 @@
 
 <body class="font-sans antialiased bg-slate-50 dark:bg-slate-900">
     <!-- Top Nav -->
-    <livewire:components.dashboard.top-nav />
+    <livewire:layout.dashboard-top-nav />
 
     <!-- Side Nav -->
-    <livewire:components.dashboard.side-nav />
+    <livewire:layout.dashboard-side-nav />
 
     <main class="h-auto p-4 pt-20 md:ml-64">
         {{ $slot }}

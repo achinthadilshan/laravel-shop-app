@@ -5,7 +5,8 @@
         <ul class="space-y-2">
             <li>
                 <a href="{{ route('dashboard') }}"
-                    class="flex items-center p-2 text-base font-medium rounded-lg text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700 group" wire:navigate>
+                    class="flex items-center p-2 text-base font-medium rounded-lg text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700 group"
+                    wire:navigate>
                     <x-lucide-pie-chart
                         class="w-5 h-5 transition duration-75 text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white" />
                     <span class="ml-3">Overview</span>
