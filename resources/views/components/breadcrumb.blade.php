@@ -1,4 +1,4 @@
-<div class="bg-white rounded-lg shadow-sm dark:bg-slate-800">
+<div class="mb-8 bg-white rounded-lg shadow-sm dark:bg-slate-800">
     <div class="flex flex-col gap-2 px-6 py-4 md:justify-between md:flex-row ">
 
         <h5 class="text-xl text-slate-900 dark:text-slate-100">{{ ucfirst(last(request()->segments())) }}</h5>
@@ -7,7 +7,7 @@
             @foreach (request()->segments() as $segment)
                 @if (!$loop->last)
                     <li class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                        <a
+                        <a wire:navigate
                             href="{{ url(implode('/', array_slice(request()->segments(), 0, $loop->iteration))) }}">{{ ucfirst($segment) }}</a>
                         <x-lucide-chevron-right class="w-4 h-4" />
                     </li>

@@ -35,6 +35,8 @@
 
     <main class="h-auto p-4 pt-20 xl:ml-64">
         <div class="max-w-screen-xl pt-0 mx-auto md:pt-4">
+            {{-- Breadcrumb --}}
+            <x-breadcrumb />
             {{ $slot }}
         </div>
     </main>

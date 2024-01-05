@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained();
             $table->decimal('price');
             $table->longText('description');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->foreignId('listing_status_id')->constrained()->default(1);
             $table->boolean('is_featured');
             $table->timestamps();
         });
