@@ -34,7 +34,7 @@
     <livewire:layouts.dashboard-side-nav />
 
     <main class="h-auto p-4 pt-20 xl:ml-64">
-        <div class="pt-0 mx-auto md:pt-4 max-w-screen-2xl">
+        <div class="max-w-screen-xl pt-0 mx-auto md:pt-4">
             {{ $slot }}
         </div>
     </main>

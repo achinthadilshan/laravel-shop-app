@@ -26,7 +26,7 @@ Route::group([
     'as' => 'dashboard.'
 ], function () {
     Route::view('/', 'dashboard')->name('index');
-    Route::get('listing', [ListingController::class, 'index'])->name('listing');
+    Route::get('listings', [ListingController::class, 'index'])->name('listing');
 });
 
 require __DIR__ . '/auth.php';
