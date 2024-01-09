@@ -68,28 +68,31 @@
                             @endif
                         </td>
                         <td class="px-4 py-3">
-                            <button id="listing-dropdown-button-{{ $listing->id }}"
-                                data-dropdown-toggle="listing-dropdown-{{ $listing->id }}"
-                                class="inline-flex items-center p-0.5 text-sm font-medium text-center text-slate-500 hover:text-slate-800 rounded-lg focus:outline-none dark:text-slate-400 dark:hover:text-slate-100"
-                                type="button">
-                                <x-lucide-more-horizontal class="w-5 h-5" />
-                            </button>
-                            <div id="listing-dropdown-{{ $listing->id }}"
-                                class="z-10 hidden bg-white divide-y rounded shadow divide-slate-100 w-44 dark:bg-slate-700 dark:divide-slate-600">
-                                <ul class="py-1 text-sm text-slate-700 dark:text-slate-200"
-                                    aria-labelledby="listing-dropdown-button-{{ $listing->id }}">
-                                    <li>
+                            {{-- add wire:ignore to avoide js issues --}}
+                            <div wire:ignore>
+                                <button id="listing-dropdown-button-{{ $listing->id }}"
+                                    data-dropdown-toggle="listing-dropdown-{{ $listing->id }}"
+                                    class="inline-flex items-center p-0.5 text-sm font-medium text-center text-slate-500 hover:text-slate-800 rounded-lg focus:outline-none dark:text-slate-400 dark:hover:text-slate-100"
+                                    type="button">
+                                    <x-lucide-more-horizontal class="w-5 h-5" />
+                                </button>
+                                <div id="listing-dropdown-{{ $listing->id }}"
+                                    class="z-10 hidden bg-white divide-y rounded shadow divide-slate-100 w-44 dark:bg-slate-700 dark:divide-slate-600">
+                                    <ul class="py-1 text-sm text-slate-700 dark:text-slate-200"
+                                        aria-labelledby="listing-dropdown-button-{{ $listing->id }}">
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white">Show</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white">Edit</a>
+                                        </li>
+                                    </ul>
+                                    <div class="py-1">
                                         <a href="#"
-                                            class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white">Show</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white">Edit</a>
-                                    </li>
-                                </ul>
-                                <div class="py-1">
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 dark:text-slate-200 dark:hover:text-white">Delete</a>
+                                            class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 dark:text-slate-200 dark:hover:text-white">Delete</a>
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -101,7 +104,8 @@
 
     {{-- Per Page --}}
     <div class="flex items-center gap-2 p-4 mt-4">
-        <label for="per-page-select" class="block text-sm font-medium text-slate-900 dark:text-white">Per Page:</label>
+        <label for="per-page-select" class="block text-sm font-medium text-slate-600 dark:text-slate-400">Per
+            Page:</label>
         <select id="per-page-select" wire:model.live="perPage"
             class="block p-2 text-sm border rounded-lg bg-slate-50 border-slate-300 text-slate-900 focus:ring-slate-500 focus:border-slate-500 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500">
             <option selected value="10">10</option>
@@ -115,6 +119,6 @@
     <div class="px-4 pb-4">
         {{-- {{ $listings->links() }} --}}
         {{-- to avoid scroll to top --}}
-        {{ $listings->links(data: ['scrollTo'=> false]) }}
+        {{ $listings->links(data: ['scrollTo' => false]) }}
     </div>
 </div>
