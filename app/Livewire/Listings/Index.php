@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Listings;
 
-use App\Models\Category;
 use App\Models\Listing;
+use Livewire\Component;
+use App\Models\Category;
+use Livewire\WithPagination;
 use App\Models\ListingStatus;
 use Livewire\Attributes\Computed;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
@@ -40,13 +41,24 @@ class Index extends Component
     }
 
     #[Computed]
-    public function categories() {
+    public function categories()
+    {
         return Category::all();
     }
 
     #[Computed]
-    public function listingStatuses() {
+    public function listingStatuses()
+    {
         return ListingStatus::all();
+    }
+
+    public function delete(Listing $listing): void
+    {
+        if (Auth::id() === $listing->user_id) {
+            $listing->delete();
+        } else {
+            abort(403, 'Unauthorized action.');
+        }
     }
 
     public function render()
