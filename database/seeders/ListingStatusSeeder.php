@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ListingStatus;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -20,9 +21,7 @@ class ListingStatusSeeder extends Seeder
         ];
 
         foreach ($listing_status as $status) {
-            DB::table('listing_statuses')->insert([
-                'name' => $status,
-            ]);
+            ListingStatus::create(['name' => $status]);
         }
     }
 }

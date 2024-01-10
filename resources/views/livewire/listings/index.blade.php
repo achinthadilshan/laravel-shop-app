@@ -6,9 +6,49 @@
         </div>
         <button type="button"
             class="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700">
-            <x-lucide-plus class="w-4 h-4 mr-2" />
+            <x-lucide-plus class="w-4 h-4" />
             Add product
         </button>
+    </div>
+
+    <div class="flex flex-col items-center justify-between gap-4 p-4 lg:gap-3 lg:flex-row">
+        <div class="w-full lg:w-1/2">
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <x-lucide-search class="w-5 h-5 text-slate-500 dark:text-slate-400" />
+                </div>
+                <input type="text" wire:model.live.debounce.300ms="search"
+                    class="block w-full p-2 pl-10 text-sm border rounded-lg text-slate-900 border-slate-300 bg-slate-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600"
+                    placeholder="Search" required="" />
+            </div>
+        </div>
+        <div class="flex flex-col items-center w-full gap-3 lg:w-auto md:flex-row">
+            <div class="w-full">
+                <select wire:model.live="category"
+                    class="block w-full p-2 text-sm bg-white border rounded-lg lg:w-auto border-slate-300 text-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-800 dark:border-slate-600 dark:placeholder-slate-400 dark:text-slate-400 dark:focus:ring-blue-600 dark:focus:border-blue-600">
+                    <option selected value="">Category</option>
+                    @foreach ($this->categories as $category)
+                        <option wire:key="{{ $category->id }}" value="{{ $category->name }}">{{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="w-full">
+                <select wire:model.live="status"
+                    class="block w-full p-2 text-sm bg-white border rounded-lg lg:w-auto border-slate-300 text-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-800 dark:border-slate-600 dark:placeholder-slate-400 dark:text-slate-400 dark:focus:ring-blue-600 dark:focus:border-blue-600">
+                    <option selected value="">Status</option>
+                    @foreach ($this->listingStatuses as $status)
+                        <option wire:key="{{ $status->id }}" value="{{ $status->name }}">{{ $status->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="flex items-center w-full">
+                <input type="checkbox" wire:model.live="is_featured"
+                    class="w-4 h-4 text-blue-600 rounded bg-slate-100 border-slate-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600">
+                <label for="default-checkbox"
+                    class="text-sm font-medium text-slate-600 ms-2 dark:text-slate-400">Featured</label>
+            </div>
+        </div>
     </div>
 
     <div class="overflow-x-auto min-h-40">
@@ -31,7 +71,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($listings as $listing)
+                @foreach ($this->listings as $listing)
                     <tr class="border-b dark:border-slate-700">
                         <td class="px-4 py-3">
                             <input type="checkbox"
@@ -107,7 +147,7 @@
         <label for="per-page-select" class="block text-sm font-medium text-slate-600 dark:text-slate-400">Per
             Page:</label>
         <select id="per-page-select" wire:model.live="perPage"
-            class="block p-2 text-sm border rounded-lg bg-slate-50 border-slate-300 text-slate-900 focus:ring-slate-500 focus:border-slate-500 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500">
+            class="block p-2 text-sm border rounded-lg bg-slate-50 border-slate-300 text-slate-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600">
             <option selected value="10">10</option>
             <option value="20">20</option>
             <option value="50">50</option>
@@ -119,6 +159,6 @@
     <div class="px-4 pb-4">
         {{-- {{ $listings->links() }} --}}
         {{-- to avoid scroll to top --}}
-        {{ $listings->links(data: ['scrollTo' => false]) }}
+        {{ $this->listings->links(data: ['scrollTo' => false]) }}
     </div>
 </div>
