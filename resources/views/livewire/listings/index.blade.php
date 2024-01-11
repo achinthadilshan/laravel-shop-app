@@ -60,9 +60,35 @@
                             class="w-4 h-4 text-blue-600 rounded bg-slate-100 border-slate-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600">
                     </th>
                     <th scope="col" class="px-4 py-3">Image</th>
-                    <th scope="col" class="px-4 py-3">Title</th>
+                    <th scope="col">
+                        <button type="button" wire:click="sort('title')"
+                            class=
+                                'flex items-center justify-between w-full px-4 py-3 text-xs uppercase text-slate-700 bg-slate-50 dark:bg-slate-700 dark:text-slate-400'>
+                            Title
+                            @if ($sortByCol !== 'title')
+                                <x-lucide-arrow-up-down class="w-4 h-4" />
+                            @elseif($sortDir === 'ASC')
+                                <x-lucide-arrow-down class="w-4 h-4" />
+                            @else
+                                <x-lucide-arrow-up class="w-4 h-4" />
+                            @endif
+                        </button>
+                    </th>
                     <th scope="col" class="px-4 py-3 text-center">Category</th>
-                    <th scope="col" class="px-4 py-3 text-right">Price</th>
+                    <th scope="col">
+                        <button type="button" wire:click="sort('price')"
+                            class=
+                                'flex items-center justify-between w-full px-4 py-3 text-xs uppercase text-slate-700 bg-slate-50 dark:bg-slate-700 dark:text-slate-400'>
+                            Price
+                            @if ($sortByCol !== 'price')
+                                <x-lucide-arrow-up-down class="w-4 h-4" />
+                            @elseif($sortDir === 'ASC')
+                                <x-lucide-arrow-down class="w-4 h-4" />
+                            @else
+                                <x-lucide-arrow-up class="w-4 h-4" />
+                            @endif
+                        </button>
+                    </th>
                     <th scope="col" class="px-4 py-3 text-center">Status</th>
                     <th scope="col" class="px-4 py-3 text-center">Featured</th>
                     <th scope="col" class="px-4 py-3">
@@ -73,11 +99,12 @@
             <tbody>
                 @if (count($this->listings) == 0)
                     <tr class="border-b dark:border-slate-700">
-                        <td colspan="8" class="px-4 py-3 text-center text-slate-400 dark:text-slate-400">No data available at the moment.</td>
+                        <td colspan="8" class="px-4 py-3 text-center text-slate-400 dark:text-slate-400">No data
+                            available at the moment.</td>
                     </tr>
                 @else
                     @foreach ($this->listings as $listing)
-                        <tr class="border-b dark:border-slate-700">
+                        <tr wire:key="{{ $listing->id }}" class="border-b dark:border-slate-700">
                             <td class="px-4 py-3">
                                 <input type="checkbox"
                                     class="w-4 h-4 text-blue-600 rounded bg-slate-100 border-slate-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600">
@@ -114,8 +141,7 @@
                                 @endif
                             </td>
                             <td class="px-4 py-3">
-                                {{-- add wire:ignore to avoide js issues --}}
-                                <div wire:ignore>
+                                <div>
                                     <button id="listing-dropdown-button-{{ $listing->id }}"
                                         data-dropdown-toggle="listing-dropdown-{{ $listing->id }}"
                                         class="inline-flex items-center p-0.5 text-sm font-medium text-center text-slate-500 hover:text-slate-800 rounded-lg focus:outline-none dark:text-slate-400 dark:hover:text-slate-100"
@@ -136,8 +162,8 @@
                                             </li>
                                         </ul>
                                         <div class="py-1">
-                                            <button wire:click="delete({{ $listing }})"
-                                                class="block w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 dark:text-slate-200 dark:hover:text-white">Delete</button>
+                                            <button wire:click="delete({{ $listing->id }})"
+                                                class="block w-full px-4 py-2 text-sm text-left text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 dark:text-slate-200 dark:hover:text-white">Delete</button>
                                         </div>
                                     </div>
                                 </div>
@@ -155,7 +181,7 @@
         <label for="per-page-select" class="block text-sm font-medium text-slate-600 dark:text-slate-400">Per
             Page:</label>
         <select id="per-page-select" wire:model.live="perPage"
-            class="block p-2 text-sm border rounded-lg bg-slate-50 border-slate-300 text-slate-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600">
+            class="block p-2 text-sm border rounded-lg bg-slate-50 border-slate-300 text-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-slate-400 dark:focus:ring-blue-600 dark:focus:border-blue-600">
             <option selected value="10">10</option>
             <option value="20">20</option>
             <option value="50">50</option>

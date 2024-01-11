@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 use App\Models\ListingStatus;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 
 class Index extends Component
 {
@@ -19,6 +20,9 @@ class Index extends Component
     public string $category = '';
     public string $status = '';
     public bool $is_featured = false;
+    public string $sortByCol = 'created_at';
+    public string $sortDir = 'DESC';
+    public $tableCols;
 
     #[Computed]
     public function listings()
@@ -37,6 +41,7 @@ class Index extends Component
             ->when($this->is_featured, function ($query) {
                 $query->where('is_featured', true);
             })
+            ->orderBy($this->sortByCol, $this->sortDir)
             ->paginate($this->perPage);
     }
 
@@ -61,8 +66,50 @@ class Index extends Component
         }
     }
 
+    // life cycle hook 'updated' for reset table
+    public function updatedPerPage(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function getColumnNames(): void
+    {
+        $tableName = (new Listing())->getTable();
+        $columnNames = Schema::getColumnListing($tableName);
+        $this->tableCols = $columnNames;
+    }
+
+    public function mount(): void
+    {
+        $this->getColumnNames();
+    }
+
+    public function sort($col): void
+    {
+        if (in_array($col, $this->tableCols)) {
+
+            if ($this->sortByCol === $col) {
+                $this->sortDir = ($this->sortDir == 'ASC') ? 'DESC' : 'ASC';
+                return;
+            }
+
+            $this->sortByCol = $col;
+            $this->sortDir = 'DESC';
+        }
+    }
+
     public function render()
     {
         return view('livewire.listings.index');
+    }
+
+    public function rendered()
+    {
+        $this->dispatch('initJS');
     }
 }
