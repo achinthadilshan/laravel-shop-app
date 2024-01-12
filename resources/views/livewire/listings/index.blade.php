@@ -141,17 +141,12 @@
                                 @endif
                             </td>
                             <td class="px-4 py-3">
-                                <div>
-                                    <button id="listing-dropdown-button-{{ $listing->id }}"
-                                        data-dropdown-toggle="listing-dropdown-{{ $listing->id }}"
-                                        class="inline-flex items-center p-0.5 text-sm font-medium text-center text-slate-500 hover:text-slate-800 rounded-lg focus:outline-none dark:text-slate-400 dark:hover:text-slate-100"
-                                        type="button">
+                                <x-dropdown :id="$listing->id">
+                                    <x-slot:trigger>
                                         <x-lucide-more-horizontal class="w-5 h-5" />
-                                    </button>
-                                    <div id="listing-dropdown-{{ $listing->id }}"
-                                        class="z-10 hidden bg-white divide-y rounded shadow divide-slate-100 w-44 dark:bg-slate-700 dark:divide-slate-600">
-                                        <ul class="py-1 text-sm text-slate-700 dark:text-slate-200"
-                                            aria-labelledby="listing-dropdown-button-{{ $listing->id }}">
+                                    </x-slot>
+                                    <x-slot:content>
+                                        <ul class="py-1 text-sm text-slate-700 dark:text-slate-200">
                                             <li>
                                                 <a href="#"
                                                     class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white">Show</a>
@@ -165,8 +160,8 @@
                                             <button wire:click="delete({{ $listing->id }})"
                                                 class="block w-full px-4 py-2 text-sm text-left text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 dark:text-slate-200 dark:hover:text-white">Delete</button>
                                         </div>
-                                    </div>
-                                </div>
+                                    </x-slot>
+                                </x-dropdown>
                             </td>
                         </tr>
                     @endforeach

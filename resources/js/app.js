@@ -56,7 +56,6 @@ document.addEventListener("livewire:navigated", () => {
 // re-initialize JS after a component re-render
 Livewire.on("initJS", () => {
     setTimeout(() => {
-        darkModeSwitcher();
         initFlowbite();
     }, 100);
 });
