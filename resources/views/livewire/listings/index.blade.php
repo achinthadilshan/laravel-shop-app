@@ -27,7 +27,7 @@
                 <select wire:model.live="category"
                     class="block w-full p-2 text-sm bg-white border rounded-lg lg:w-auto border-slate-300 text-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-800 dark:border-slate-600 dark:placeholder-slate-400 dark:text-slate-400 dark:focus:ring-blue-600 dark:focus:border-blue-600">
                     <option selected value="">Category</option>
-                    @foreach ($this->categories as $category)
+                    @foreach ($categories as $category)
                         <option wire:key="{{ $category->id }}" value="{{ $category->name }}">{{ $category->name }}
                         </option>
                     @endforeach
@@ -37,7 +37,7 @@
                 <select wire:model.live="status"
                     class="block w-full p-2 text-sm bg-white border rounded-lg lg:w-auto border-slate-300 text-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-800 dark:border-slate-600 dark:placeholder-slate-400 dark:text-slate-400 dark:focus:ring-blue-600 dark:focus:border-blue-600">
                     <option selected value="">Status</option>
-                    @foreach ($this->listingStatuses as $status)
+                    @foreach ($listing_statuses as $status)
                         <option wire:key="{{ $status->id }}" value="{{ $status->name }}">{{ $status->name }}</option>
                     @endforeach
                 </select>
@@ -52,12 +52,22 @@
     </div>
 
     <div class="overflow-x-auto min-h-40">
+        @unless (!count($checked) > 0)
+            <div
+                class="px-4 py-2 text-sm border-t dark:border-slate-700 border-slate-200 text-slate-400 dak:text-slate-600">
+                <b>{{ count($checked) }}</b> {{ count($checked) > 1 ? 'items' : 'item' }} selected.
+                <button class="text-blue-500 underline underline-offset-2" wire:click="selectAllListings()">Select
+                    All</button>
+                <button class="text-red-500 underline underline-offset-2"
+                    onclick="confirm('Are you sure want to delete selected items?') || event.stopImmediatePropagation()"
+                    wire:click="deleteListings()">Delete Selection</button>
+            </div>
+        @endunless
         <table class="w-full text-sm text-left text-slate-500 dark:text-slate-400">
             <thead class="text-xs uppercase text-slate-700 bg-slate-50 dark:bg-slate-700 dark:text-slate-400">
                 <tr>
                     <th scope="col" class="px-4 py-3">
-                        <input type="checkbox"
-                            class="w-4 h-4 text-blue-600 rounded bg-slate-100 border-slate-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600">
+                        <span class="sr-only">Actions</span>
                     </th>
                     <th scope="col" class="px-4 py-3">Image</th>
                     <th scope="col">
@@ -97,16 +107,16 @@
                 </tr>
             </thead>
             <tbody>
-                @if (count($this->listings) == 0)
+                @if (count($listings) == 0)
                     <tr class="border-b dark:border-slate-700">
                         <td colspan="8" class="px-4 py-3 text-center text-slate-400 dark:text-slate-400">No data
                             available at the moment.</td>
                     </tr>
                 @else
-                    @foreach ($this->listings as $listing)
+                    @foreach ($listings as $listing)
                         <tr wire:key="{{ $listing->id }}" class="border-b dark:border-slate-700">
                             <td class="px-4 py-3">
-                                <input type="checkbox"
+                                <input type="checkbox" value="{{ $listing->id }}" wire:model.live="checked"
                                     class="w-4 h-4 text-blue-600 rounded bg-slate-100 border-slate-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600">
                             </td>
                             <td class="px-4 py-3">
@@ -157,7 +167,7 @@
                                             </li>
                                         </ul>
                                         <div class="py-1">
-                                            <button wire:click="delete({{ $listing->id }})"
+                                            <button wire:click="deleteSingleListing({{ $listing->id }})"
                                                 class="block w-full px-4 py-2 text-sm text-left text-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 dark:text-slate-200 dark:hover:text-white">Delete</button>
                                         </div>
                                     </x-slot>
@@ -171,23 +181,25 @@
         </table>
     </div>
 
-    {{-- Per Page --}}
-    <div class="flex items-center gap-2 p-4 mt-4">
-        <label for="per-page-select" class="block text-sm font-medium text-slate-600 dark:text-slate-400">Per
-            Page:</label>
-        <select id="per-page-select" wire:model.live="perPage"
-            class="block p-2 text-sm border rounded-lg bg-slate-50 border-slate-300 text-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-slate-400 dark:focus:ring-blue-600 dark:focus:border-blue-600">
-            <option selected value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-        </select>
-    </div>
+    @unless (count($listings) == 0)
+        {{-- Per Page --}}
+        <div class="flex items-center gap-2 p-4 mt-4">
+            <label for="per-page-select" class="block text-sm font-medium text-slate-600 dark:text-slate-400">Per
+                Page:</label>
+            <select id="per-page-select" wire:model.live="perPage"
+                class="block p-2 text-sm border rounded-lg bg-slate-50 border-slate-300 text-slate-600 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-slate-400 dark:focus:ring-blue-600 dark:focus:border-blue-600">
+                <option selected value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
 
-    {{-- pagination --}}
-    <div class="px-4 pb-4">
-        {{-- {{ $listings->links() }} --}}
-        {{-- to avoid scroll to top --}}
-        {{ $this->listings->links(data: ['scrollTo' => false]) }}
-    </div>
+        {{-- pagination --}}
+        <div class="px-4 pb-4">
+            {{-- {{ $listings->links() }} --}}
+            {{-- to avoid scroll to top --}}
+            {{ $listings->links(data: ['scrollTo' => false]) }}
+        </div>
+    @endunless
 </div>
