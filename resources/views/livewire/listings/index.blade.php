@@ -52,22 +52,34 @@
     </div>
 
     <div class="overflow-x-auto min-h-40">
-        @unless (!count($checked) > 0)
+        @unless (false)
             <div
-                class="px-4 py-2 text-sm border-t dark:border-slate-700 border-slate-200 text-slate-400 dak:text-slate-600">
-                <b>{{ count($checked) }}</b> {{ count($checked) > 1 ? 'items' : 'item' }} selected.
-                <button class="text-blue-500 underline underline-offset-2" wire:click="selectAllListings()">Select
-                    All</button>
-                <button class="text-red-500 underline underline-offset-2"
-                    onclick="confirm('Are you sure want to delete selected items?') || event.stopImmediatePropagation()"
-                    wire:click="deleteListings()">Delete Selection</button>
+                class="flex items-center justify-between px-4 py-2 text-sm border-t dark:border-slate-700 border-slate-200 text-slate-400 dak:text-slate-600">
+                <p>
+                    <b>{{ count($checked) }}</b> {{ count($checked) == 1 ? 'item' : 'items' }} selected.
+                    @unless ($checkAll)
+                        <button class="text-blue-500 underline underline-offset-2" wire:click="checkAllListings()">Select
+                            All</button>
+                    @endunless
+                    @unless (!count($checked) > 0)
+                        <button class="text-blue-500 underline underline-offset-2" wire:click="uncheckAllListings()">Deselect
+                            All</button>
+                        <button class="text-red-500 underline underline-offset-2"
+                            wire:confirm="Are you sure want to delete selected items?" wire:click="deleteListings()">Delete
+                            Selection</button>
+                    @endunless
+                </p>
+                <div wire:loading>
+                    <x-lucide-loader-2 class="w-5 h-5 text-blue-400 animate-spin dark:text-blue-600" />
+                </div>
             </div>
         @endunless
         <table class="w-full text-sm text-left text-slate-500 dark:text-slate-400">
             <thead class="text-xs uppercase text-slate-700 bg-slate-50 dark:bg-slate-700 dark:text-slate-400">
                 <tr>
                     <th scope="col" class="px-4 py-3">
-                        <span class="sr-only">Actions</span>
+                        <input type="checkbox" wire:model.live="checkAll"
+                            class="w-4 h-4 text-blue-600 rounded bg-slate-100 border-slate-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600">
                     </th>
                     <th scope="col" class="px-4 py-3">Image</th>
                     <th scope="col">

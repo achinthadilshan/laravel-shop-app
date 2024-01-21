@@ -26,7 +26,7 @@
     </script>
 </head>
 
-<body class="font-sans antialiased bg-slate-50 dark:bg-slate-900">
+<body class="font-sans antialiased bg-slate-100 dark:bg-slate-900">
     <!-- Top Nav -->
     <livewire:layouts.dashboard-top-nav />
 

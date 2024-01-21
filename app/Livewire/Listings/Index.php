@@ -7,7 +7,6 @@ use Livewire\Component;
 use App\Models\Category;
 use Livewire\WithPagination;
 use App\Models\ListingStatus;
-use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 
@@ -23,7 +22,15 @@ class Index extends Component
     public string $sortByCol = 'created_at';
     public string $sortDir = 'DESC';
     public array $checked = [];
+    public bool $checkAll = false;
+    public int $currentListingCount;
     public $tableCols;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Get Listings
+    |--------------------------------------------------------------------------
+    */
 
     public function getListings()
     {
@@ -45,15 +52,33 @@ class Index extends Component
             ->paginate($this->perPage);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Get Categories
+    |--------------------------------------------------------------------------
+    */
+
     public function getCategories()
     {
         return Category::all();
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Get Listing Statuses
+    |--------------------------------------------------------------------------
+    */
+
     public function getListingStatuses()
     {
         return ListingStatus::all();
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Get database column names of Listing model
+    |--------------------------------------------------------------------------
+    */
 
     public function getColumnNames(): void
     {
@@ -62,41 +87,77 @@ class Index extends Component
         $this->tableCols = $columnNames;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Get Current Listing Count
+    |--------------------------------------------------------------------------
+    */
+
+    public function getListingCount(): void
+
+    {
+        $this->currentListingCount = count(Listing::pluck('id')->toArray());
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Delete Single Listing
+    |--------------------------------------------------------------------------
+    */
+
     public function deleteSingleListing(Listing $listing): void
     {
         if (Auth::id() === $listing->user_id) {
             $listing->delete();
+            $this->getListingCount();
         } else {
             abort(403, 'Unauthorized action.');
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Delete Multiple Listings
+    |--------------------------------------------------------------------------
+    */
+
     public function deleteListings(): void
     {
         Listing::whereKey($this->checked)->delete();
         $this->checked = [];
+        $this->checkAll = false;
+        $this->getListingCount();
     }
 
-    public function selectAllListings(): void
+    /*
+    |--------------------------------------------------------------------------
+    | Check All Listings
+    |--------------------------------------------------------------------------
+    */
+
+    public function checkAllListings(): void
     {
         $this->checked = Listing::pluck('id')->toArray();
+        $this->checkAll = true;
     }
 
-    // life cycle hook 'updated' for reset table
-    public function updatedPerPage(): void
+    /*
+    |--------------------------------------------------------------------------
+    | Uncheck All Listings
+    |--------------------------------------------------------------------------
+    */
+
+    public function uncheckAllListings(): void
     {
-        $this->resetPage();
+        $this->checked = [];
+        $this->checkAll = false;
     }
 
-    public function updatedSearch(): void
-    {
-        $this->resetPage();
-    }
-
-    public function mount(): void
-    {
-        $this->getColumnNames();
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Sort Table Rows
+    |--------------------------------------------------------------------------
+    */
 
     public function sort($col): void
     {
@@ -112,6 +173,72 @@ class Index extends Component
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Reset pagination after filtering (life cycle hook 'updated' + variable name)
+    |--------------------------------------------------------------------------
+    */
+
+    public function updatedPerPage(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Monitor checks (life cycle hook 'updated' + variable name)
+    |--------------------------------------------------------------------------
+    */
+
+    public function updatedChecked(): void
+    {
+        if(count($this->checked) == $this->currentListingCount) {
+            $this->checkAll = true;
+        } else {
+            $this->checkAll = false;
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Check All (life cycle hook 'updated' + variable name)
+    |--------------------------------------------------------------------------
+    */
+
+    public function updatedCheckAll($value): void
+    {
+        if ($value) {
+            $this->checkAllListings();
+        } else {
+            $this->checked = [];
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Get database column names of Listing table on mount 
+    | (life cycle hook 'updated' + variable name)
+    |--------------------------------------------------------------------------
+    */
+
+    public function mount(): void
+    {
+        $this->getColumnNames();
+        $this->getListingCount();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Render the view
+    | (life cycle hook 'render')
+    |--------------------------------------------------------------------------
+    */
+
     public function render()
     {
         return view('livewire.listings.index', [
@@ -120,6 +247,13 @@ class Index extends Component
             'listing_statuses' => $this->getListingStatuses(),
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Dispatch JS event after render the page to fix JS instance issues
+    | (life cycle hook 'rendered')
+    |--------------------------------------------------------------------------
+    */
 
     public function rendered()
     {
